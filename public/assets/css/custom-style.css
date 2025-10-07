@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'open_sans';
+    src: url('assets/fonts/open_sans.ttf');
+}
+
+.font-custom{
+    font-family: 'open_sans';
+}
