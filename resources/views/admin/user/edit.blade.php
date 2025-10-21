@@ -13,8 +13,8 @@
                             </svg>
                         </a>
                     </li>
-                    <li class="breadcrumb-item"><a href="ur">Pelanggan</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Edit Pelanggan</li>
+                    <li class="breadcrumb-item"><a href="ur">User</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit User</li>
                 </ol>
             </nav>
             <div class="d-flex justify-content-between w-100 flex-wrap">
@@ -57,9 +57,14 @@
                                             name="email" value="{{ $dataUser->email }}">
                                     </div>
 
-                                    <!-- Phone -->
+                                    <!-- User -->
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
+                                        <input type="password" id="phone" class="form-control" name="password"
+                                            value="{{ $dataUser->password }}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Konfirmasi Password</label>
                                         <input type="password" id="phone" class="form-control" name="password"
                                             value="{{ $dataUser->password }}">
                                     </div>
