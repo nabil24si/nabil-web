@@ -24,7 +24,7 @@
             </div>
             <div>
                 <a href="{{ route('pelanggan.create') }}" class="btn btn-success text-white"><i
-                        class="far fa-question-circle me-1"></i>
+                        class="fas fa-plus me-1"></i>
                     Tambah Pelanggan</a>
             </div>
         </div>
@@ -87,6 +87,8 @@
                                         <th class="border-0">Gender</th>
                                         <th class="border-0">Email</th>
                                         <th class="border-0">Phone</th>
+                                        {{-- 🛑 Kolom Dokumen ditambahkan --}}
+                                        <th class="border-0">Dokumen</th>
                                         <th class="border-0 rounded-end">Action</th>
                                     </tr>
                                 </thead>
@@ -99,7 +101,22 @@
                                             <td>{{ $item->gender }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td>{{ $item->phone }}</td>
-                                            <td><a href="{{ route('pelanggan.edit', $item->pelanggan_id) }}"
+
+                                            {{-- 🛑 Tampilan Daftar Dokumen --}}
+                                            <td>
+                                                @if (isset($item->documents) && $item->documents->count() > 0)
+                                                    @foreach ($item->documents as $document)
+                                                        <a href="{{ Storage::url($document->path) }}" target="_blank" class="badge bg-info me-1 mb-1" title="{{ $document->file_name ?? 'Dokumen' }}">
+                                                            <i class="fas fa-file-alt"></i> Dokumen ({{ $loop->iteration }})
+                                                        </a>
+                                                    @endforeach
+                                                @else
+                                                    <span class="text-muted">Tidak ada dokumen</span>
+                                                @endif
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('pelanggan.edit', $item->pelanggan_id) }}"
                                                     class="btn btn-info btn-sm">
                                                     <svg class="icon icon-xs me-2" data-slot="icon" fill="none"
                                                         stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
@@ -126,9 +143,6 @@
                                                     </button>
                                                 </form>
                                             </td>
-
-
-
                                         </tr>
                                     @endforeach
 
