@@ -75,6 +75,16 @@
                                         id="profile_picture">
                                 </div>
 
+                                 <div class="mb-3">
+                                        <label for="role" class="form-label">Role</label>
+                                        <select id="role" name="role" class="form-select">
+                                            <option value="">-- Pilih --</option>
+                                            <option value="Super Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                            <option value="Pelanggan" {{ old('role') == 'pelanggan' ? 'selected' : '' }}>Pelanggan</option>
+                                            <option value="Mitra" {{ old('role') == 'Mitra' ? 'selected' : '' }}>Mitra</option>
+                                        </select>
+                                    </div>
+
                                 <!-- Buttons -->
                                 <div class="">
                                     <button type="submit" class="btn btn-primary">Simpan</button>

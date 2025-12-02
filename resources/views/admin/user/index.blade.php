@@ -46,6 +46,7 @@
                                     <th class="border-0">Foto</th>
                                     <th class="border-0">Nama</th>
                                     <th class="border-0">Email</th>
+                                    <th class="border-0">Role</th>
                                     {{-- Kolom Password dihilangkan karena sensitif --}}
                                     <th class="border-0 rounded-end">Action</th>
                                 </tr>
@@ -66,6 +67,7 @@
                                         </td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->email }}</td>
+                                        <td>{{ $item->role }}</td>
                                         {{-- Kolom Password dihapus --}}
 
                                         <td>

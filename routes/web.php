@@ -26,8 +26,8 @@ Route::get('/', [DashboardController::class, 'index'])
 
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('user', UserController::class);
-Route::resource('auth', AuthController::class);
-Route::resource('dashboard', DashboardController::class);
+
+Route::resource('dashboard', DashboardController::class)->middleware('checkislogin');
 
 Route::resource('multipleuploads', MultipleuploadsController::class)
     ->names([
@@ -44,6 +44,13 @@ Route::delete('/profile/picture', [ProfileController::class, 'destroy'])->name('
 
 Route::get('auth', [AuthController::class, 'index'])->name('auth');
 Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+
+
+Route::group(['middleware' => ['checkrole:Admin']], function () {
+    Route::get('user', [UserController::class, 'index'])->name('user.index');
+});
 
 
 
