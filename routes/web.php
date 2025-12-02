@@ -37,18 +37,13 @@ Route::resource('multipleuploads', MultipleuploadsController::class)
     ]);
 // routes/web.php
 
-// 1. Tampilkan detail profil (GET /profile)
-// Mengganti /profile/show menjadi /profile
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-
-// 2. Tampilkan formulir edit (GET /profile/edit)
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-
-// 3. Proses pembaruan profil (PUT /profile/edit)
-// Disarankan menggunakan /profile/edit untuk update jika show berada di /profile
 Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
-
-// 4. Hapus gambar profil (DELETE /profile/picture)
 Route::delete('/profile/picture', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::get('auth', [AuthController::class, 'index'])->name('auth');
+Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+
 
 

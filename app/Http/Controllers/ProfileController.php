@@ -11,8 +11,6 @@ class ProfileController extends Controller
 {
     /**
      * Tampilkan formulir edit profil.
-     *
-     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -22,9 +20,6 @@ class ProfileController extends Controller
 
     /**
      * Perbarui gambar profil pengguna.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {
@@ -35,17 +30,17 @@ class ProfileController extends Controller
         $user = Auth::user();
         $file = $request->file('profile_picture');
 
-        // 1. Panggil fungsi pembantu untuk menghapus file lama
+        // Hapus file lama
         $this->deleteProfilePictureFile($user);
 
-        // 2. Tentukan nama file yang unik dan aman
+        // Generate nama file aman
         $extension = $file->getClientOriginalExtension();
         $fileName = time() . '_' . uniqid() . '.' . $extension;
 
-        // 3. Simpan file baru menggunakan storeAs()
+        // Simpan file
         $path = $file->storeAs('profile_pictures', $fileName, 'public');
 
-        // 4. Perbarui Model
+        // Update DB
         $user->profile_picture = $path;
         $user->save();
 
@@ -53,30 +48,23 @@ class ProfileController extends Controller
     }
 
     /**
-     * Tampilkan profil pengguna.
-     *
-     * @return \Illuminate\View\View
+     * Tampilkan profil pengguna (ganti nama agar tidak bentrok dengan controller lain).
      */
-    public function show()
+    public function profile()
     {
         $user = Auth::user();
-        // Memastikan $user diteruskan, yang sudah Anda lakukan sebelumnya
         return view('admin.profile.show', compact('user'));
     }
 
     /**
-     * Hapus gambar profil pengguna.
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * Hapus gambar profil.
      */
     public function destroy()
     {
         $user = Auth::user();
 
-        // 1. Panggil fungsi pembantu untuk menghapus file
         $this->deleteProfilePictureFile($user);
 
-        // 2. Reset kolom database
         $user->profile_picture = null;
         $user->save();
 
@@ -84,19 +72,12 @@ class ProfileController extends Controller
     }
 
     /**
-     * Fungsi pembantu untuk menghapus file gambar profil lama.
-     * Menggunakan pengecekan eksistensi file sebelum menghapus.
-     *
-     * @param \App\Models\User $user
-     * @return void
+     * Helper untuk menghapus file.
      */
     protected function deleteProfilePictureFile(User $user)
     {
-        if ($user->profile_picture) {
-            // Pengecekan keamanan: Pastikan file benar-benar ada sebelum mencoba menghapus
-            if (Storage::disk('public')->exists($user->profile_picture)) {
-                Storage::disk('public')->delete($user->profile_picture);
-            }
+        if ($user->profile_picture && Storage::disk('public')->exists($user->profile_picture)) {
+            Storage::disk('public')->delete($user->profile_picture);
         }
     }
 }
